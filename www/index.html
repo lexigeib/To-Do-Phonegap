@@ -15,7 +15,7 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady(){
 alert('Recieving table file....');
   var size =0;
-  var type = window.PERSISTENT;  
+  var type = LocalFileSystem.PERSISTENT;  
   window.requestFileSystem(type, size, fileSuccess, errorCall);
     function fileSuccess(fs){
         fs.root.getFile('table.txt', {create:true, exclusive:true},function(fileEntry){
@@ -38,7 +38,7 @@ function addTable(){
     table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" id="done"></td><td class="tg-cly1">${txt}</td><td class="datecolor">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
     alert('write attempted');
     var size = 0;
-    window.requestFileSystem(window.PERSISTENT, size, successCall, errorCall);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
         fs.root.getFile('table.txt',{replace:true},function(fileEntry){
         fileEntry.createWriter(function(fileWriter){
@@ -60,7 +60,7 @@ function refresh(){
     checkDate();
 }
 function tablePaste(){
-    var type = window.PERSISTENT;
+    var type = LocalFileSystem.PERSISTENT;
     
     var size = 0;
     
