@@ -18,6 +18,7 @@ function onDeviceReady(){
   window.requestFileSystem(type, size, fileSuccess, errorCall);
     alert('Recieving table file....');
     function fileSuccess(fs){
+            ('file system open: ' + fs.name);
         fs.root.getFile('table.txt', {create:true, exclusive:false},function(fileEntry){
             alert('File Creation/Get Successful');
         }, errorCall);
@@ -40,7 +41,7 @@ function addTable(){
     var size = 0;
     window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
-        fs.root.getFile('table.txt',{replace:true},function(fileEntry){
+        fs.root.getFile('table.txt',{create:true},function(fileEntry){
         fileEntry.createWriter(function(fileWriter){
             fileWriter.onwriteend = function(e){
                 alert("table write completed, proceeding to paste to file.");
@@ -49,7 +50,7 @@ function addTable(){
                 alert("write failed: "+ e.toString());
             };
             var output = document.getElementById('table-container').textContent;
-            fileWriter.write(outout);
+            fileWriter.write(output);
         }, errorCall);    
         }, errorCall);
     }
