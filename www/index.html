@@ -18,8 +18,8 @@ function onDeviceReady(){
   window.requestFileSystem(type, size, fileSuccess, errorCall);
     alert('Recieving table file....');
     function fileSuccess(fs){
-            ('file system open: ' + fs.name);
-        fs.root.getFile('table.txt', {create:true, exclusive:false},function(fileEntry){
+            alert('file system open: ' + fs.name);
+        fs.root.getFile('table.txt', {create: true, exclusive: false}, function(fileEntry){
             alert('File Creation/Get Successful');
         }, errorCall);
     }
@@ -27,7 +27,7 @@ function onDeviceReady(){
     tablePaste();
 }
 function errorCall(error){
-    alert("Error Code: "+error.code);
+    alert("Error Code: "+ error.code + error);
 }        
 function addTable(){
     var txt = document.getElementById('task').value;
@@ -73,7 +73,7 @@ function tablePaste(){
             var reader = new FileReader();
             reader.onloadend = function(e){
             var table = document.getElementById('table-container');
-            table.insertAdjacentHTML = ('beforeend', this.result);    
+            table.innerHTML = this.result;  
             };
         reader.readAsText(fileEntry);    
         }, errorCall);    
