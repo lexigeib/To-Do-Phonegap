@@ -15,32 +15,19 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady(){
 alert('Recieving table file....');
   var size =0;
-  window.requestFileSystem(LocalFileSystem.PERSISTENT, size, fileSuccess, fileError);
-    alert("File system Accessed");
+  var type = window.PERSISTENT;  
+  window.requestFileSystem(type, size, fileSuccess, errorCall);
+    function fileSuccess(fs){
+        fs.root.getFile('table.txt', {create:true, exclusive:true},function(fileEntry){
+            alert('File Creation/Get Successful');
+        }, errorCall);
+    }
+    alert("File system Accessed, preparing to paste table");
+    tablePaste();
 }
-function fileSuccess(FS){
-   inRoot=FS.root;
-   inRoot.getFile('table.txt', {create: true, exclusive:false}, function(fileEntry) {setUP(fileEntry, null, true);}, creationError);
-   alert ("File Sys. Succesfully read."); 
-}
-function setUP(fileIn, x, isAppend){
-	//setUP the file pointer for later use
-    exampleFile=fileIn;
-    readIT();
-	  
-}
-function getItReady(file){
-   writeFile(file, null);
-}
-function readIT() {
-   exampleFile.file(function (file) {
-      var reader = new FileReader();
-      reader.onloadend = function() {
-          document.getElementById("table-container").insertAdjacentHTML = ('beforeend',this.result);
-      };
-      reader.readAsText(file);
-    }, readError);
-}
+function errorCall(error){
+    alert("Error Code: "+error.code);
+}        
 function addTable(){
     var txt = document.getElementById('task').value;
     var date = document.getElementById('date').value;
@@ -49,19 +36,49 @@ function addTable(){
     var table = document.getElementById('table-container');
     
     table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" id="done"></td><td class="tg-cly1">${txt}</td><td class="datecolor">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
-    writeIT();
     alert('write attempted');
+    var size = 0;
+    window.requestFileSystem(window.PERSISTENT, size, successCall, errorCall);
+    function successCall(fs){
+        fs.root.getFile('table.txt',{create:true},function(fileEntry){
+        fileEntry.createWriter(function(fileWriter){
+            fileWriter.onwriteend = function(e){
+                alert("table write completed");
+            };
+            fileWriter.onerror = function(e){
+                alert("write failed: "+ e.toString());
+            };
+            var blob = new Blob([`${table}`],{type:'text/plain'});
+            fileWriter.write(blob);
+        }, errorCall);    
+        }, errorCall);
+    }
     refresh();
 } 
 function refresh(){
-   window.requestFileSystem(LocalFileSystem.PERSISTENT, size, updateSuccess, fileError);
-    function updateSuccess(FS){
-   inRoot=FS.root;
-   inRoot.getFile('table.txt', {create: true, exclusive:false}, function(fileEntry) {document.getElementById('table-container').insertAdjacentHTML('beforeend',fileEntry);}, creationError);
-   alert ("File Sys. Succesfully posted."); 
-}
+    tablePaste();
     checkDate();
 }
+function tablePaste(){
+    var type = window.PERSISTENT;
+    
+    var size = 0;
+    
+    window.requestFileSystem(type, size, successCall, errorCall)
+    
+    function successCall(fs){
+        fs.root.getFile('table.txt',{},function(fileEntry){
+        fileEntry.file(function(file){
+            var reader = new FileReader();
+            reader.onloadend = function(e){
+            var table = document.getElementById('table-container');
+            table.insertAdjacentHTML = ('beforeend', this.result);    
+            };
+        reader.readAsText(fileEntry);    
+        }, errorCall);    
+        }, errorCall);
+    }
+}        
 function checkDate() {
 
   var startDate = new Date(document.getElementsByClassName('datecolor').value);
@@ -73,14 +90,6 @@ function checkDate() {
     document.getElementsByClassName('datecolor').style.fontWeight = "thick";
   }
 }
-function writeIT() {
-  exampleFile.createWriter(onGetWriter, onWriteErr);
-}
-function onGetWriter(myWriter) {
-   str = document.getElementById('container').innerHTML;
-   myWriter.seek(myWriter.length);
-   myWriter.write(str);
-}        
     </script>
     
     <title>TODO</title>
