@@ -73,12 +73,12 @@ function tablePaste(){
     window.requestFileSystem(type, size, successCall, errorCall)
     
     function successCall(fs){
-        fs.root.getFile('table.txt',{},function(fileEntry){
+        fs.root.getFile('table.txt',{create: true, exclusive: false},function(fileEntry){
         fileEntry.file(function(file){
             var reader = new FileReader();
             reader.onloadend = function(e){
-            var table = document.getElementById('table-container');
-            table.innerHTML = this.result;  
+            var table = document.getElementById('table-container').value;
+            table.insertAdjacentHTML = ('beforeend', this.result);  
             };
         reader.readAsText(fileEntry);    
         }, errorCall);    
