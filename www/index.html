@@ -40,7 +40,7 @@ function addTable(){
     var size = 0;
     window.requestFileSystem(window.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
-        fs.root.getFile('table.txt',{create:true},function(fileEntry){
+        fs.root.getFile('table.txt',{replace:true},function(fileEntry){
         fileEntry.createWriter(function(fileWriter){
             fileWriter.onwriteend = function(e){
                 alert("table write completed, proceeding to paste to file.");
