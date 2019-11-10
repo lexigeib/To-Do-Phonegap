@@ -20,8 +20,13 @@ function onDeviceReady(){
     function fileSuccess(fs){
             alert('file system open: ' + fs.name);
         fs.root.getFile('table.txt', {create: true, exclusive: false}, function(fileEntry){
+            if (fileEntry.isFile){
+                alert('file found, proceeding to *pasting*');
+            } else {
+                writeFile(fileEntry, null);
+            }
             alert('File Creation/Get Successful');
-        }, errorCall);
+            }, errorCall);
     }
     alert("File system Accessed, preparing to paste table");
     tablePaste();
