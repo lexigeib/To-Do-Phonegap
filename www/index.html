@@ -13,12 +13,12 @@
     <script type="text/javascript">
 document.addEventListener('deviceready', onDeviceReady, false);   
 function onDeviceReady(){
-alert('Recieving table file....');
   var size =0;
   var type = LocalFileSystem.PERSISTENT;  
   window.requestFileSystem(type, size, fileSuccess, errorCall);
+    alert('Recieving table file....');
     function fileSuccess(fs){
-        fs.root.getFile('table.txt', {create:true, exclusive:true},function(fileEntry){
+        fs.root.getFile('table.txt', {create:true, exclusive:false},function(fileEntry){
             alert('File Creation/Get Successful');
         }, errorCall);
     }
