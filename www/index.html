@@ -57,9 +57,12 @@ function addTable(){
             var output = document.getElementById('table-container').textContent;
             fileWriter.seek(fileWriter.length);
             fileWriter.write(output);
+            alert('Pasted.');
+            
         }, errorCall);    
         }, errorCall);
     }
+    alert('Refreshing....');
     refresh();
 } 
 function refresh(){
