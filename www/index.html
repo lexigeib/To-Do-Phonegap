@@ -23,6 +23,7 @@ function onDeviceReady(){
             if (fileEntry.isFile){
                 alert('file found, proceeding to *pasting*');
             } else {
+                alert('File not found, recreating empty file.')
                 writeFile(fileEntry, null);
             }
             alert('File Creation/Get Successful');
@@ -61,9 +62,9 @@ function addTable(){
             
         }, errorCall);    
         }, errorCall);
-    }
-    alert('Refreshing....');
+        alert('Refreshing....');
     refresh();
+    }
 } 
 function refresh(){
     tablePaste();
@@ -82,9 +83,10 @@ function tablePaste(){
             var reader = new FileReader();
             reader.onloadend = function(e){
             var table = document.getElementById('table-container').value;
-            table.insertAdjacentHTML = ('beforeend', this.result);  
+            table.insertAdjacentHTML = ('beforeend', file);  
             };
-        reader.readAsText(fileEntry);    
+        reader.readAsText(fileEntry);
+            alert('re-read file, attemping to put on table')
         }, errorCall);    
         }, errorCall);
     }
