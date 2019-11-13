@@ -46,7 +46,7 @@ function addTable(){
     var size = 0;
     window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
-        fs.root.getFile('table.txt',{create:true},function(fileEntry){
+        fs.root.getFile('table.txt',{create:true, exclusive: false}, function(fileEntry){
         fileEntry.createWriter(function(fileWriter){
             fileWriter.onwriteend = function(e){
                 alert("table write completed, proceeding to paste to file.");
@@ -55,6 +55,7 @@ function addTable(){
                 alert("write failed: "+ e.toString());
             };
             var output = document.getElementById('table-container').textContent;
+            fileWriter.seek(fileWriter.length);
             fileWriter.write(output);
         }, errorCall);    
         }, errorCall);
@@ -70,7 +71,7 @@ function tablePaste(){
     
     var size = 0;
     
-    window.requestFileSystem(type, size, successCall, errorCall)
+    window.requestFileSystem(type, size, successCall, errorCall);
     
     function successCall(fs){
         fs.root.getFile('table.txt',{create: true, exclusive: false},function(fileEntry){
