@@ -56,9 +56,7 @@ function addTable(){
                 alert("write failed: "+ e.toString());
             };
             var output = document.getElementById('container').innerHTML;
-            fileWriter.seek(fileWriter.length);
             fileWriter.write(output);
-            alert('Pasted.');
             
         }, errorCall);    
         }, errorCall);
@@ -85,10 +83,10 @@ function tablePaste(){
             var reader = new FileReader();
             reader.onloadend = function(e){
             var table = document.getElementById('container');
-            table.innerHTML = file
+            table.innerHTML = file;
             };
-        reader.readAsText(fileEntry);
-            alert('attempting table pasting');
+        reader.readAsText(file);
+            alert('File Read.');
         }, errorCall);    
         }, errorCall);
     }
