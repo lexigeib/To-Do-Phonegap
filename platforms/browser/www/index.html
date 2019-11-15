@@ -11,14 +11,30 @@
       <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
-document.addEventListener('deviceready', onDeviceReady, false);
-    app.initialize();    
+document.addEventListener('deviceready', onDeviceReady, false);   
 function onDeviceReady(){
-alert('Recieving table file....');
- var tablestart = localstorage.getItem('table');
- document.getElementById('container').innerHTML = tablestart;
- alert('table acquired if availiable from Local Storage');   
+  var size =0;
+  var type = LocalFileSystem.PERSISTENT;  
+  window.requestFileSystem(type, size, fileSuccess, errorCall);
+    alert('Recieving table file....');
+    function fileSuccess(fs){
+            alert('file system open: ' + fs.name);
+        fs.root.getFile('table.txt', {create: true, exclusive: false}, function(fileEntry){
+            if (fileEntry.isFile){
+                alert('file found, proceeding to *pasting*');
+            } else {
+                alert('File not found, recreating empty file.')
+                writeFile(fileEntry, null);
+            }
+            alert('File Creation/Get Successful');
+            }, errorCall);
+    }
+    alert("File system Accessed, preparing to paste table");
+    tablePaste();
 }
+function errorCall(error){
+    alert("Error Code: "+ error.code + error);
+}        
 function addTable(){
     var txt = document.getElementById('task').value;
     var date = document.getElementById('date').value;
@@ -27,16 +43,57 @@ function addTable(){
     var table = document.getElementById('table-container');
     
     table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" id="done"></td><td class="tg-cly1">${txt}</td><td class="datecolor">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
-    localStorage.setItem('table', table);
-    alert('write attempted');
+    alert('Table - Added.');
+    var size = 0;
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
+    function successCall(fs){
+        fs.root.getFile('table.txt',{create:true, exclusive: false}, function(fileEntry){
+        fileEntry.createWriter(function(fileWriter){
+            fileWriter.onwriteend = function(e){
+                alert("table write completed, proceeding to paste to file.");
+            };
+            fileWriter.onerror = function(e){
+                alert("write failed: "+ e.toString());
+            };
+            var output = document.getElementById('container').innerHTML;
+            fileWriter.seek(fileWriter.length);
+            fileWriter.write(output);
+            alert('Pasted.');
+            
+        }, errorCall);    
+        }, errorCall);
+        alert('Refreshing....');
     refresh();
+    }
 } 
 function refresh(){
-   var output = localStorage.getItem('table');
-    document.getElementById('container').insertAdjacentHTML = output;
+    tablePaste();
     checkDate();
 }
-        function checkDate() {
+function tablePaste(){
+    var type = LocalFileSystem.PERSISTENT;
+    
+    var size = 0;
+    
+    window.requestFileSystem(type, size, successCall, errorCall);
+    
+    function successCall(fs){
+        alert('Recieving File.');
+        fs.root.getFile('table.txt',{create: true, exclusive: false},function(fileEntry){
+        fileEntry.file(function(file){
+            alert('found File, attempting to read.');
+            var reader = new FileReader();
+            reader.onloadend = function(e){
+            var table = document.getElementById('container');
+            table.innerHTML = file
+            };
+        reader.readAsText(fileEntry);
+            alert('attempting table pasting');
+        }, errorCall);    
+        }, errorCall);
+    }
+}        
+function checkDate() {
 
   var startDate = new Date(document.getElementsByClassName('datecolor').value);
   var today = new Date();
