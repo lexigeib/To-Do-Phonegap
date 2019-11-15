@@ -43,7 +43,7 @@ function addTable(){
     var table = document.getElementById('table-container');
     
     table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" id="done"></td><td class="tg-cly1">${txt}</td><td class="datecolor">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
-    alert('write attempted');
+    alert('Table - Added.');
     var size = 0;
     window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
@@ -55,7 +55,7 @@ function addTable(){
             fileWriter.onerror = function(e){
                 alert("write failed: "+ e.toString());
             };
-            var output = document.getElementById('table-container').textContent;
+            var output = document.getElementById('container').innerHTML;
             fileWriter.seek(fileWriter.length);
             fileWriter.write(output);
             alert('Pasted.');
@@ -78,15 +78,17 @@ function tablePaste(){
     window.requestFileSystem(type, size, successCall, errorCall);
     
     function successCall(fs){
+        alert('Recieving File.');
         fs.root.getFile('table.txt',{create: true, exclusive: false},function(fileEntry){
         fileEntry.file(function(file){
+            alert('found File, attempting to read.');
             var reader = new FileReader();
             reader.onloadend = function(e){
-            var table = document.getElementById('table-container').value;
-            table.insertAdjacentHTML = ('beforeend', file);  
+            var table = document.getElementById('container');
+            table.innerHTML = file
             };
         reader.readAsText(fileEntry);
-            alert('re-read file, attemping to put on table')
+            alert('attempting table pasting');
         }, errorCall);    
         }, errorCall);
     }
