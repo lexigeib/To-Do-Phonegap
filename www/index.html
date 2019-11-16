@@ -94,11 +94,11 @@ function checkDate() {
         var Startdate = new Date(entries[i].value);
   if ((startDate.getTime() - today.getTime()) < 0) {
     var entry = entries[i];  
-    entry.style.color = "red" ;
+    entry.style.color = "red";
   };
   if (startDate.toDateString() === today.toDateString()) {
     var entry = entries[i];  
-    entry.style.fontWeight = "thick" ;
+    entry.style.fontWeight = "thick";
   };
     }
   alert('dates checked...');    
