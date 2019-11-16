@@ -88,20 +88,22 @@ function tablePaste() {
     }
 }        
 function checkDate() {
-  var entries = document.getElementsByClassName('date-color');
-  var today = new Date();
-    for (var i = 0; i < startDate.length; i++){
+  var entries = document.getElementsByClassName('date-color');  
+for (var i = 0; i < startDate.length; i++){
         var Startdate = new Date(entries[i].value);
+        var today = new Date();
   if ((startDate.getTime() - today.getTime()) < 0) {
     var entry = entries[i];  
     entry.style.color = "red";
-  };
-  if (startDate.toDateString() === today.toDateString()) {
+  }
+   else if (startDate.toDateString() === today.toDateString()) {
     var entry = entries[i];  
     entry.style.fontWeight = "thick";
-  };
-    };
-  alert('dates checked...');    
+  } 
+    else {alert('dates checked...');  
+      
+  }
+    };  
 }
     </script>
     
