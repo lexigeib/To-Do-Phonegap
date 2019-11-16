@@ -29,6 +29,7 @@ function onDeviceReady(){
     }
     alert("File system Accessed");
     tablePaste();
+    checkDate();
 }
 function errorCall(error){
     alert("Error Code: "+ error.code + error);
@@ -61,11 +62,7 @@ function appendTable() {
             
         }, errorCall);    
         }, errorCall);
-        alert('Refreshing....');
-    refresh();
     }
-} 
-function refresh() {
     checkDate();
 }
 function tablePaste() {
@@ -97,10 +94,10 @@ function checkDate() {
     for (var i = 0; i < startDate.length; i++){
         var Startdate = new Date(entries[i].value);
   if (startDate.getTime() < today.getTime()) {
-    document.getElementsByClassName('datecolor').style.color = "red" ;
+    entries[i].style.color = "red" ;
   };
   if (startDate.getTime() == today.getTime()) {
-    document.getElementsByClassName('datecolor').style.fontWeight = "thick";
+    entries[i].style.fontWeight = "thick";
   };
     }
   alert('dates checked...');    
