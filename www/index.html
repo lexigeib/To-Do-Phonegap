@@ -9,7 +9,6 @@
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
       <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
 document.addEventListener('deviceready', onDeviceReady, false);   
 function onDeviceReady(){
@@ -35,7 +34,7 @@ function onDeviceReady(){
 function errorCall(error){
     alert("Error Code: "+ error.code + error);
 }        
-function addTable(){
+function appendTable(){
     var txt = document.getElementById('task').value;
     var date = document.getElementById('date').value;
     var priority = document.getElementById('priority').value;
@@ -83,7 +82,7 @@ function tablePaste(){
             var reader = new FileReader();
             reader.onloadend = function(e){
             var table = document.getElementById('container');
-            table.innerHTML = file;
+            table.innerHTML = this.result;
             };
         reader.readAsText(file);
             alert('File Read.');
@@ -133,7 +132,7 @@ function checkDate() {
    <option value='Work' selected>Work</option>
    <option value='Personal'>Personal</option>
 <select>
-    <button onclick="addTable()" id="buttonimg"><img style="height: 30px;width: 30px; margin-bottom: -10px"src="img/angle-right@1x.png"></button>
+    <button onclick="appendTable()" id="buttonimg"><img style="height: 30px;width: 30px; margin-bottom: -10px"src="img/angle-right@1x.png"></button>
     </div>
 </body>
 
