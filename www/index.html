@@ -93,10 +93,10 @@ function checkDate() {
   var today = new Date();
     for (var i = 0; i < startDate.length; i++){
         var Startdate = new Date(entries[i].value);
-  if (startDate.getTime() < today.getTime()) {
+  if ((startDate.getTime() - today.getTime()) < 0) {
     entries[i].style.color = "red" ;
   };
-  if (startDate.getTime() == today.getTime()) {
+  if (startDate.toDateString() === today.toDateString()) {
     entries[i].style.fontWeight = "thick";
   };
     }
