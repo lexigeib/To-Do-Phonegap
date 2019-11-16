@@ -27,7 +27,6 @@ function onDeviceReady(){
             };
             }, errorCall);
     }
-    alert("File system Accessed");
     tablePaste();
     checkDate();
 }
@@ -35,8 +34,6 @@ function errorCall(error){
     alert("Error Code: "+ error.code + error);
 }        
 function appendTable() {
-    
-    alert('Adding Table');
     var txt = document.getElementById('task').value;
     var date = document.getElementById('date').value;
     var priority = document.getElementById('priority').value;
@@ -52,7 +49,7 @@ function appendTable() {
         fs.root.getFile('table.txt',{create:true, exclusive: false}, function(fileEntry){
         fileEntry.createWriter(function(fileWriter){
             fileWriter.onwriteend = function(e){
-                alert("tablewrite complete.");
+                alert("onwriteend complete.");
             };
             fileWriter.onerror = function(e){
                 alert("write failed: "+ e.toString());
@@ -62,7 +59,7 @@ function appendTable() {
             
         }, errorCall);    
         }, errorCall);
-    }
+    };
     checkDate();
 }
 function tablePaste() {
@@ -72,12 +69,10 @@ function tablePaste() {
     
     function successCall(fs){
         alert('Accessing File');
-        
         fs.root.getFile('table.txt',{create: true, exclusive: false},function(fileEntry){
         fileEntry.file(function(file){
             var reader = new FileReader();
-            reader.onloadend = function(e){
-            alert('Appending file to table.');    
+            reader.onloadend = function(e){  
             var table = document.getElementById('table-container');
             table.insertAdjacentHTML('beforeend', this.result);
             alert('File added');    
@@ -85,25 +80,27 @@ function tablePaste() {
         reader.readAsText(file);
         }, errorCall);    
         }, errorCall);
-    }
+    };
+    checkDate();
 }        
 function checkDate() {
-  var entries = document.getElementsByClassName('date-color');  
+  var entries = document.getElementsByClassName('date-color');
+    var today = new Date();
 for (var i = 0; i < startDate.length; i++){
         var Startdate = new Date(entries[i].value);
-        var today = new Date();
-  if ((startDate.getTime() - today.getTime()) < 0) {
+  if (startDate.getDate() < today.getDate()) {
     var entry = entries[i];  
     entry.style.color = "red";
   }
-   else if (startDate.toDateString() === today.toDateString()) {
+   else if (startDate.getDate() === today.getDate()) {
     var entry = entries[i];  
     entry.style.fontWeight = "thick";
   } 
     else {alert('dates checked...');  
       
   }
-    };  
+    };
+    alert('updated.');
 }
     </script>
     
