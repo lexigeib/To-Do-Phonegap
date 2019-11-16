@@ -56,7 +56,7 @@ function appendTable() {
             fileWriter.onerror = function(e){
                 alert("write failed: "+ e.toString());
             };
-            var output = document.getElementById('container').innerHTML;
+            var output = document.getElementById('table-container').innerHTML;
             fileWriter.write(output);
             
         }, errorCall);    
@@ -82,8 +82,8 @@ function tablePaste() {
             var reader = new FileReader();
             reader.onloadend = function(e){
             alert('Appending file to table.');    
-            var table = document.getElementById('container');
-            table.innerHTML = this.result;
+            var table = document.getElementById('table-container');
+            table.insertAdjacentHTML('beforeend', this.result);
             alert('File added');    
             };
         reader.readAsText(file);
