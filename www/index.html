@@ -20,21 +20,21 @@ function onDeviceReady(){
             alert('file system open: ' + fs.name);
         fs.root.getFile('table.txt', {create: true, exclusive: false}, function(fileEntry){
             if (fileEntry.isFile){
-                alert('file found, proceeding to *pasting*');
+                alert('file found at: ' + fs.fullPath);
             } else {
                 alert('File not found, recreating empty file.')
                 writeFile(fileEntry, null);
-            }
-            alert('File Creation/Get Successful');
+            };
             }, errorCall);
     }
-    alert("File system Accessed, preparing to paste table");
+    alert("File system Accessed");
     tablePaste();
 }
 function errorCall(error){
     alert("Error Code: "+ error.code + error);
 }        
 function appendTable() {
+    
     alert('Adding Table');
     var txt = document.getElementById('task').value;
     var date = document.getElementById('date').value;
@@ -43,13 +43,15 @@ function appendTable() {
     var table = document.getElementById('table-container');
     
     table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" id="done"></td><td class="tg-cly1">${txt}</td><td class="datecolor">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
+    
     var size = 0;
+    
     window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
         fs.root.getFile('table.txt',{create:true, exclusive: false}, function(fileEntry){
         fileEntry.createWriter(function(fileWriter){
             fileWriter.onwriteend = function(e){
-                alert("table write completed, proceeding to paste to file.");
+                alert("tablewrite complete.");
             };
             fileWriter.onerror = function(e){
                 alert("write failed: "+ e.toString());
@@ -68,18 +70,18 @@ function refresh() {
     checkDate();
 }
 function tablePaste() {
-    var type = LocalFileSystem.PERSISTENT;
     
-    var size = 0;
-    
-    window.requestFileSystem(type, size, successCall, errorCall);
+    var size = 0;    
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     
     function successCall(fs){
-        alert('Recieving File.');
+        alert('Accessing File');
+        
         fs.root.getFile('table.txt',{create: true, exclusive: false},function(fileEntry){
         fileEntry.file(function(file){
             var reader = new FileReader();
             reader.onloadend = function(e){
+            alert('Appending file to table.');    
             var table = document.getElementById('container');
             table.innerHTML = this.result;
             alert('File added');    
