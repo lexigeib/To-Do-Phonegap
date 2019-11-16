@@ -34,7 +34,8 @@ function onDeviceReady(){
 function errorCall(error){
     alert("Error Code: "+ error.code + error);
 }        
-function appendTable(){
+function appendTable() {
+    alert('Adding Table');
     var txt = document.getElementById('task').value;
     var date = document.getElementById('date').value;
     var priority = document.getElementById('priority').value;
@@ -42,7 +43,6 @@ function appendTable(){
     var table = document.getElementById('table-container');
     
     table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" id="done"></td><td class="tg-cly1">${txt}</td><td class="datecolor">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
-    alert('Table - Added.');
     var size = 0;
     window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
@@ -63,11 +63,11 @@ function appendTable(){
     refresh();
     }
 } 
-function refresh(){
+function refresh() {
     tablePaste();
     checkDate();
 }
-function tablePaste(){
+function tablePaste() {
     var type = LocalFileSystem.PERSISTENT;
     
     var size = 0;
@@ -78,14 +78,13 @@ function tablePaste(){
         alert('Recieving File.');
         fs.root.getFile('table.txt',{create: true, exclusive: false},function(fileEntry){
         fileEntry.file(function(file){
-            alert('found File, attempting to read.');
             var reader = new FileReader();
             reader.onloadend = function(e){
             var table = document.getElementById('container');
             table.innerHTML = this.result;
+            alert('File added');    
             };
         reader.readAsText(file);
-            alert('File Read.');
         }, errorCall);    
         }, errorCall);
     }
