@@ -66,7 +66,6 @@ function appendTable() {
     }
 } 
 function refresh() {
-    tablePaste();
     checkDate();
 }
 function tablePaste() {
@@ -92,15 +91,19 @@ function tablePaste() {
     }
 }        
 function checkDate() {
-
-  var startDate = new Date(document.getElementsByClassName('datecolor').value);
+  alert('checking dates...');
+  var entries = document.getElementsByClassName('datecolor');
   var today = new Date();
-  if (startDate.getTime() > today.getTime()) {
+    for (var i = 0; i < startDate.length; i++){
+        var Startdate = new Date(entries[i].value);
+  if (startDate.getTime() < today.getTime()) {
     document.getElementsByClassName('datecolor').style.color = "red" ;
-  }
+  };
   if (startDate.getTime() == today.getTime()) {
     document.getElementsByClassName('datecolor').style.fontWeight = "thick";
-  }
+  };
+    }
+  alert('dates checked...');    
 }
     </script>
     
