@@ -81,7 +81,6 @@ function tablePaste() {
         }, errorCall);    
         }, errorCall);
     };
-    checkDate();
 }        
 function checkDate() {
   var entries = document.getElementsByClassName('date-color');
@@ -98,16 +97,17 @@ for (var i = 0; i < startDate.length; i++){
   } 
     else {alert('dates checked...');  
       
-  }
+  };
     };
-    alert('updated.');
 }
     </script>
     
     <title>TODO</title>
 </head>
 <body style="color: grey">
-    <script type="text/javascript"> app.initialize();</script>
+    <script type="text/javascript"> 
+    app.initialize();
+    var date = setInterval(checkDate, 4000);</script>
   <br>
     <h1 style="text-align: center">To-Do List</h1>
     <br>
