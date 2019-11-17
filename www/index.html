@@ -40,7 +40,7 @@ function appendTable() {
     var category = document.getElementById('category').value;
     var table = document.getElementById('table-container');
     
-    table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" id="done"></td><td class="tg-cly1">${txt}</td><td class="date-color">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
+    table.insertAdjacentHTML('beforeend',`<tr><td class="tg-rykj"><input type="radio" class="done"></td><td class="tg-cly1">${txt}</td><td class="dates">${date}</td><td class="tg-cly1">${priority}</td><td class="tg-cly1">${category}</td></tr>`);
     
     var size = 0;
     
@@ -59,8 +59,9 @@ function appendTable() {
             
         }, errorCall);    
         }, errorCall);
+        document.getElementById('task').value="";
+    document.getElementById('date').value="";    
     };
-    checkDate();
 }
 function tablePaste() {
     
@@ -83,23 +84,37 @@ function tablePaste() {
     };
 }        
 function checkDate() {
-  var entries = document.getElementsByClassName('date-color');
+    console.log('activated datecheck');
+  var entries = document.getElementsByClassName('dates');
     var today = new Date();
-for (var i = 0; i < startDate.length; i++){
-        var Startdate = new Date(entries[i].value);
-  if (startDate < today) {
+for (var i = 0; i < entries.length; i++){
+    console.log(entries[i].textContent);
+    var startDate = new Date(entries[i].textContent + 'EST');
+  if (startDate.getDate() < today.getDate()) {
     var entry = entries[i];  
     entry.style.color = "red";
   }
-   else if (startDate == today) {
+   else if (startDate.getDate() === today.getDate()) {
     var entry = entries[i];  
-    entry.style.fontWeight = "thick";
+    entry.style.fontWeight = "bold";
   } 
-    else {alert('dates checked...');  
+    else {
       
   };
     };
 }
+function eraseRow() {
+    console.log('checking rows');
+    var table = document.getElementById('table-container');
+    var buttons = document.getElementsByClassName('done');
+    for (var i = 0; i < buttons.length; i++){
+        if (buttons[i].checked){
+          table.deleteRow(i);
+        }
+    }
+}        
+var date = setInterval(checkDate, 9000);
+var removal = setInterval(eraseRow, 9000);
     </script>
     
     <title>TODO</title>
@@ -107,7 +122,7 @@ for (var i = 0; i < startDate.length; i++){
 <body style="color: grey">
     <script type="text/javascript"> 
     app.initialize();
-    var date = setInterval(checkDate, 4000);</script>
+    </script>
   <br>
     <h1 style="text-align: center">To-Do List</h1>
     <br>
