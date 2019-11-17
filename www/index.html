@@ -87,11 +87,11 @@ function checkDate() {
     var today = new Date();
 for (var i = 0; i < startDate.length; i++){
         var Startdate = new Date(entries[i].value);
-  if (startDate.getDate() < today.getDate()) {
+  if (startDate < today) {
     var entry = entries[i];  
     entry.style.color = "red";
   }
-   else if (startDate.getDate() === today.getDate()) {
+   else if (startDate == today) {
     var entry = entries[i];  
     entry.style.fontWeight = "thick";
   } 
