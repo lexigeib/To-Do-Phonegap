@@ -134,3 +134,12 @@ tr{width:100%;}
 .tg .tg-vlyc{font-size:12px;font-family:"Times New Roman", Times, serif !important;;border-color:inherit;text-align:left;vertical-align:top}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 .tg .tg-0lax{text-align:left;vertical-align:top}
+
+body {
+    background-image: url(../img/notebook-lined-paper-texture_89245-174.jpg);
+}
+
+#blurry {
+    text-shadow: 2px 2px 8px "black";
+    text-align: center;
+}
