@@ -1,29 +1,12 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: Comic Sans MS;
 }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    -webkit-touch-callout: none;                
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
     background-color:#E4E4E4;
     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
@@ -45,7 +28,6 @@ body {
     width:100%;
 }
 
-/* Portrait layout (default) */
 .app {
     background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */
@@ -70,6 +52,9 @@ body {
 }
 
 h1 {
+    color: white;
+    font-family: Comic Sans MS;
+    letter-spacing: 2px;
     font-size:24px;
     font-weight:normal;
     margin:0px;
@@ -79,8 +64,8 @@ h1 {
 }
 
 .event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
+    border-radius:10px;
+    -webkit-border-radius:10px;
     color:#FFFFFF;
     font-size:12px;
     margin:0px 30px;
@@ -93,7 +78,7 @@ h1 {
 }
 
 .event.received {
-    background-color:#4B946A;
+    background-color: blue;
     display:none;
 }
 
@@ -108,37 +93,171 @@ h1 {
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+#delete{
+    height: 10px;
+    width: 10px;
+} 
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
-#content
-{
-  position: fixed;
-  bottom: 0px;
+.name, .dates{
+    width: 35%;
+}
+#task{
+    width: 18%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+#priority{
+    width: 15%;
+    border-radius: 4px;
+}
+#date{
+    width: 32%;
+    border-radius: 4px;
+}
+#category{
+    width: auto;
+    border-radius: 4px;
+}
+ul{
+    color: white;
+    margin: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    list-style-type: none;
+}
+#navContent{
+    font-size: 15px;
+}
+li{
+    padding-left: 0;
+    padding-right: 0;
+    float: left;
+    margin-bottom: 20px;
+    border: 2px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+}
+#categoryAdd{
+    width: 70px;
+}
+#color, #colorChange, 
+#categoryAdd, #categoryButton,
+#deleteButton, #defaultButton{
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+#content{
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background-color: grey;
+    position: fixed;
+    bottom: 0px;
     width: 100%;
-    border-width: thick;
-    border-color: whitesmoke;
-    border-style:inset;
     overflow:auto;
     white-space:nowrap;
 }
-#buttonimg{padding: 0;
-border: none;
-background: none;}
+#buttonimg{
+    padding: 0;
+    border: none;
+    background: none; 
+    margin-left: -6px;
+}
 tr{width:100%;}
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#93a1a1;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#93a1a1;color:#002b36;background-color:#fdf6e3;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#93a1a1;color:#fdf6e3;background-color:#657b83;}
-.tg .tg-vlyc{font-size:12px;font-family:"Times New Roman", Times, serif !important;;border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-
+.tg  {
+    border-collapse:collapse;
+    border-spacing:0;
+    border-color:#93a1a1;
+}
+.tg td{
+    border-radius: 5px;
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    padding:10px 5px;
+    border-style:solid;
+    border-width:0px;
+    overflow:hidden;
+    word-break:normal;
+    border-color:#93a1a1;
+    color:white;
+}
+#rotate{
+    transform: rotate(25deg);
+}
+.tg th{
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    font-family:Comic Sans MS;
+    font-size:14px;
+    font-weight:normal;
+    padding:10px 7px;
+    border-style:solid;
+    border-width:0px;
+    overflow:hidden;
+    word-break:normal;
+    border-color:#93a1a1;
+    color:#fdf6e3;
+    background-color:black;
+}
+.tg .tg-vlyc{
+    font-size:12px;
+    font-family: Comic Sans MS, !important;
+    border-color:inherit;
+    text-align:left;
+    vertical-align:top
+}
+.tg .tg-0pky{
+    border-color:inherit;
+    text-align:left;
+    vertical-align:top
+}
+.tg .tg-0lax{
+    text-align:left;
+    vertical-align:top
+}
 body {
     background-image: url(../img/notebook-lined-paper-texture_89245-174.jpg);
 }
+.sidenav {
+    color: white;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
 
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+.sidenav select{
+    margin-left: 10px;
+}
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
 #blurry {
     text-shadow: 2px 2px 8px "black";
     text-align: center;
