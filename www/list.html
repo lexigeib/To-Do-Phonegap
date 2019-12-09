@@ -29,7 +29,7 @@
             <input id="color" type="color"></li></div><br><br><br>
             <div class="navOption"><li>
                 Delete all Tasks:<br>
-                <button id="deleteButton" onclick="reset(); closeNav();">Delete</button>
+                <button id="deleteButton" onclick="resetTable(); closeNav();">Delete</button>
             </li></div><br><br><br>
             <div class="navOption"><li>Add a Category:<br>
                 <button onclick="addCategory(document.getElementById('categoryAdd').value); closeNav();" id="categoryButton">
@@ -37,8 +37,8 @@
                 <input type="text" id="categoryAdd">
             </li></div><br><br><br>
             <div class="navOption"><li>
-                Return to Default Categories:<br>
-                <button id="defaultButton" onclick="reset(); closeNav();">Default</button>
+                Delete all Categories:<br>
+                <button id="defaultButton" onclick="categoriesReset(); closeNav();">Default</button>
             </li></div>
             </ul>
         </div>
