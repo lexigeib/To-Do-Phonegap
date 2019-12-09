@@ -37,6 +37,9 @@ function resetTable(){
     };
 }
 function resetCategories(){
+    var answer = prompt("Are you sure about that??? yes or no.");
+
+if (answer == "yes") {
     var cat = document.getElementById("category");
     cat.innerHTML="";
     var size = 0;
@@ -51,6 +54,13 @@ function resetCategories(){
             }, errorCall);    
         }, errorCall);
     };
+  }
+    else if (answer == "no"){
+        alert("K, glad you thought about it.");
+    }
+    else{
+        break
+    }
 }
 function appendTable() {
     var txt = document.getElementById('task').value;
@@ -229,7 +239,7 @@ function dateSort() {
             var secondDate = new Date(entries[j+1].textContent + 'EST');
             console.log(firstDate);
             console.log(secondDate);
-            if (firstDate.getDate() < secondDate.getDate()){
+            if (firstDate > secondDate){
                 row[j].parentNode.insertBefore(row[j + 1], row[j]);
             };
         };
