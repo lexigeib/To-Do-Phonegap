@@ -37,9 +37,6 @@ function resetTable(){
     };
 }
 function resetCategories(){
-    var answer = prompt("Are you sure about that??? yes or no.");
-
-if (answer == "yes") {
     var cat = document.getElementById("category");
     cat.innerHTML="";
     var size = 0;
@@ -54,13 +51,6 @@ if (answer == "yes") {
             }, errorCall);    
         }, errorCall);
     };
-  }
-    else if (answer == "no"){
-        alert("K, glad you thought about it.");
-    }
-    else{
-        break
-    }
 }
 function appendTable() {
     var txt = document.getElementById('task').value;
