@@ -20,13 +20,38 @@ function onDeviceReady(){
 function errorCall(error){
     alert("Error Code: "+ error.code + error);
 }  
-function reset(){
+function resetTable(){
     var table = document.getElementById("table-container");
-     while(table.rows.length >= 1) {
-  table.deleteRow(0);
+    table.innerHTML="";
+    var size = 0;
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
+    function successCall(fs){
+        fs.root.getFile('table.txt',{create:true, exclusive: false}, function(fileEntry){
+            fileEntry.createWriter(function(fileWriter){
+                fileWriter.onerror = function(e){
+                    alert("write failed: "+ e.toString());
+                };
+                fileWriter.truncate(0);
+            }, errorCall);    
+        }, errorCall);
+    };
 }
-    updateTable();
-}      
+function resetCategories(){
+    var cat = document.getElementById("category");
+    cat.innerHTML="";
+    var size = 0;
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
+    function successCall(fs){
+        fs.root.getFile('category.txt',{create:true, exclusive: false}, function(fileEntry){
+            fileEntry.createWriter(function(fileWriter){
+                fileWriter.onerror = function(e){
+                    alert("write failed: "+ e.toString());
+                };
+                fileWriter.truncate(0);
+            }, errorCall);    
+        }, errorCall);
+    };
+}
 function appendTable() {
     var txt = document.getElementById('task').value;
     var date = document.getElementById('date').value;
@@ -103,7 +128,7 @@ function addCategory(x) {
     var size = 0;
     window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
     function successCall(fs){
-        fs.root.getFile('c1.txt',{create:true, exclusive: false}, function(fileEntry){
+        fs.root.getFile('category.txt',{create:true, exclusive: false}, function(fileEntry){
             fileEntry.createWriter(function(fileWriter){
                 fileWriter.onerror = function(e){
                     alert("write failed: "+ e.toString());
@@ -119,7 +144,7 @@ function categoryPaste() {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, size, successCall, errorCall);
 
     function successCall(fs){
-        fs.root.getFile('c1.txt',{create: true, exclusive: false},function(fileEntry){
+        fs.root.getFile('category.txt',{create: true, exclusive: false},function(fileEntry){
         fileEntry.file(function(file){
             var reader = new FileReader();
             reader.onloadend = function(e){  
@@ -191,44 +216,24 @@ function checkDate() {
     };
 }
 function dateSort() {
-
     console.log('sorting tables');
-
-  var entries = document.getElementsByClassName('dates');
-
-  var table = document.getElementById('table-container');
-
+    var entries = document.getElementsByClassName('dates');
+    var table = document.getElementById('table-container');
     var row = table.rows;
-
     var end;
-
-   for (var i = 0; i < row.length; i++){
-
-       for (j = 0, end = row.length - 1; j < end; j++ ){
-
-    var firstDate = new Date(entries[j].textContent + 'EST');
-
-    var secondDate = new Date(entries[j+1].textContent + 'EST');
-
-           console.log(firstDate);
-
-           console.log(secondDate);
-
-       if (firstDate.getDate() < secondDate.getDate()){
-
-           row[j].parentNode.insertBefore(row[j + 1], row[j]);
-
-       };
-
+    for (var i = 0; i < row.length; i++){
+        for (j = 0, end = row.length - 1; j < end; j++ ){
+            var firstDate = new Date(entries[j].textContent + 'EST');
+            var secondDate = new Date(entries[j+1].textContent + 'EST');
+            console.log(firstDate);
+            console.log(secondDate);
+            if (firstDate.getDate() < secondDate.getDate()){
+                row[j].parentNode.insertBefore(row[j + 1], row[j]);
+            };
+        };
    };
-
-   };
-
-    updateTable();
-
+   updateTable();
 }
-
-
 function eraseRow() {
     console.log('checking rows');
     var table = document.getElementById('table-container');
