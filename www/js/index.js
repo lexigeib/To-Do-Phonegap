@@ -21,7 +21,8 @@ function errorCall(error){
     alert("Error Code: "+ error.code + error);
 }  
 function resetTable(){
-    if (confirm('You Really wanna do that???')) {
+    var answer = confirm('Are you really certain you wanna delete the table?");
+                         if (answer == true){
     var table = document.getElementById("table-container");
     table.innerHTML="";
     var size = 0;
