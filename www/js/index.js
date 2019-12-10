@@ -21,8 +21,6 @@ function errorCall(error){
     alert("Error Code: "+ error.code + error);
 }  
 function resetTable(){
-    var answer = confirm('Are you really certain you wanna delete the table?");
-                         if (answer == true){
     var table = document.getElementById("table-container");
     table.innerHTML="";
     var size = 0;
@@ -37,8 +35,6 @@ function resetTable(){
             }, errorCall);    
         }, errorCall);
     };
-        } else {
-        }
 }
 function resetCategories(){
     var cat = document.getElementById("category");
