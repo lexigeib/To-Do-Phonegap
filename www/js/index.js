@@ -206,12 +206,12 @@ function checkDate() {
     for (var i = 0; i < entries.length; i++){
         console.log(entries[i].textContent);
         var startDate = new Date(entries[i].textContent + 'EST');
-        if (startDate.getDate() < today.getDate()) {
+        if (startDate < today) {
             var entry = entries[i];  
             entry.style.backgroundColor = "red";
             entry.style.fontWeight = "bold";
         }
-        else if (startDate.getDate() === today.getDate()) {
+        else if (startDate === today) {
             var entry = entries[i];  
             entry.style.fontWeight = "bold";
         } 
